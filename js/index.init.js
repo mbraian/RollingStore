@@ -88,14 +88,13 @@ const filterByPrice = (value, productsArray) => {
  */
 
 const searchByName = (value) => {
-  let p = JSON.parse(localStorage.getItem('products'))
-  let pFiltered = []
+  let p = JSON.parse(localStorage.getItem('products'));
+  let pFiltered = [];
   console.log(p);
   //https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/String/includes
-p.forEach(producto => {
-  if (producto.name == v)lue
-= pFilteredetlifpp 
-});
+  p.forEach(producto => {
+    if (producto.name.includes(value)){ pFiltered.push(producto)}
+  });
 
 //https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/String/includes
   console.log(pFiltered);
