@@ -8,6 +8,6 @@ import { getUsers } from "../services/getUsers.js"
  */
 
 export const validateLoginUser = ({email, password}) =>{
-   const users = getUsers()
- 
+   const users = getUsers();
+   return users.some(user => user.email === email && user.password === password);
 }
