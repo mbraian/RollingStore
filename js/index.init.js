@@ -7,13 +7,13 @@ import { createAdminUser } from "./services/setAdminUser.js";
 import { renderCartBody } from "./cart.init.js";
 import { cartBadgeHandler } from "./utils/cartBadgeHandler.js";
 
-let products ;
+let products;
 
 document.addEventListener("DOMContentLoaded", () => {
   Navbar();
-  createAdminUser()
-  setProducts()
-  products = getProducts()
+  createAdminUser();
+  setProducts();
+  products = getProducts();
   // renderCartBody()
   // cartBadgeHandler()
   renderProductCards(products);
@@ -22,51 +22,47 @@ document.addEventListener("DOMContentLoaded", () => {
 const cardContainer = document.getElementById("cardContainer");
 
 /**
- * 
- * @param {array} products Arreglo de producto 
-  * @returns {} Renderiza las cards de los productos.
+ *
+ * @param {array} products Arreglo de producto
+ * @returns {} Renderiza las cards de los productos.
  */
-
 
 const renderProductCards = (products) => {
   cardContainer.innerHTML = "";
   products.map((product) => {
     const visible = product.visible === true;
-    
-    if (visible){
+
+    if (visible) {
       cardContainer.innerHTML += ProductCard(product);
     }
-  })
+  });
 };
-
-
 
 const searchInput = document.getElementById("searchInput");
 const priceSelect = document.getElementById("priceSelect");
 const categorySelect = document.getElementById("categorySelect");
 const clearFilters = document.getElementById("clearFilters");
 /**
- * 
- * @param {string} value Valor del filtro de categoria 
+ *
+ * @param {string} value Valor del filtro de categoria
  * @param {array} productsArray Arreglo de productos a renderizar
  * @returns {array} Devuelve el arreglo de productos filtrados
  */
 
-
 const filterByCategory = (value, productsArray) => {
-    switch (true) {
-      case value === "mug":
-          categorySelect = productsArray
-        break;
-    
-      default:
-        break;
-    }
+  switch (true) {
+    case value === "mug":
+      categorySelect = productsArray;
+      break;
+
+    default:
+      break;
+  }
 };
 
 /**
- * 
-* @param {string} value Valor del filtro de precio. 
+ *
+ * @param {string} value Valor del filtro de precio.
  * @param {array} productsArray Arreglo de productos a renderizar
  * @returns {array} Devuelve el arreglo de productos filtrados
  */
@@ -77,44 +73,39 @@ const filterByPrice = (value, productsArray) => {
   };
   productsArray.price.sort(comparar);
 
-  productsArray.price.sort((a,b) => a.price - b.price)
-
+  productsArray.price.sort((a, b) => a.price - b.price);
 };
 
 /**
- * 
- * @param {string} value valor del input de nombre 
+ *
+ * @param {string} value valor del input de nombre
+ * @param {array} productsArray Arreglo de productos a renderizar
  * @returns Arreglo de productos a renderizar
  */
 
-const searchByName = (value) => {
-  let p = JSON.parse(localStorage.getItem('products'));
-  let pFiltered = [];
-  console.log(p);
-  //https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/String/includes
-  p.forEach(producto => {
-    if (producto.name.includes(value)){ pFiltered.push(producto)}
-  });
-
-//https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/String/includes
-  console.log(pFiltered);
+const searchByName = (value, productsArray) => {
+  return productsArray.filter((p) => p.name.includes(value));
 };
 
-searchInput.addEventListener('keyup', searchByName)
+searchInput.addEventListener("keyup", searchByName);
 
 /**
- * 
+ *
  * @param {string} searchInputValue Valor del input de nombre
- * @param {string} priceSelectValue Valor del select de precios 
+ * @param {string} priceSelectValue Valor del select de precios
  * @param {string} categorySelectValue Valor del select de categoria
  * @returns Crea un arreglo de productos pasando por todos los filtros y llama a renderProductCards() para renderizarlas, en caso de no haber productos muestra ProductNotFoundMessage()
  */
 
-const renderFilteredProducts = (searchInputValue,priceSelectValue,categorySelectValue) => {
-  let filteredProducts = searchByName(searchInputValue)
-  filteredProducts = filterByCategory(categorySelectValue,filteredProducts)
-  filteredProducts = filterByPrice(priceSelectValue,filteredProducts)
- 
+const renderFilteredProducts = (
+  searchInputValue,
+  priceSelectValue,
+  categorySelectValue
+) => {
+  let filteredProducts = searchByName(searchInputValue);
+  filteredProducts = filterByCategory(categorySelectValue, filteredProducts);
+  filteredProducts = filterByPrice(priceSelectValue, filteredProducts);
+
   renderProductCards(filteredProducts);
 
   // ProductNotFoundMessage()
@@ -145,7 +136,7 @@ categorySelect.addEventListener("change", (e) => {
 });
 
 clearFilters.addEventListener("click", (e) => {
-  e.preventDefault()
+  e.preventDefault();
   searchInput.value = "";
   priceSelect.value = "";
   categorySelect.value = "";
