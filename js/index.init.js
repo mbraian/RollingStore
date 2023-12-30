@@ -54,14 +54,7 @@ const clearFilters = document.getElementById("clearFilters");
 
 
 const filterByCategory = (value, productsArray) => {
-    switch (true) {
-      case value === "mug":
-          categorySelect = productsArray
-        break;
-    
-      default:
-        break;
-    }
+  return productsArray.filter(p => p.category === value);
 };
 
 /**
