@@ -50,14 +50,7 @@ const clearFilters = document.getElementById("clearFilters");
  */
 
 const filterByCategory = (value, productsArray) => {
-  switch (true) {
-    case value === "mug":
-      categorySelect = productsArray;
-      break;
-
-    default:
-      break;
-  }
+  return productsArray.filter(p => p.category === value);
 };
 
 /**
@@ -68,12 +61,26 @@ const filterByCategory = (value, productsArray) => {
  */
 
 const filterByPrice = (value, productsArray) => {
-  let comparar = function (a, b) {
-    return a - b;
-  };
-  productsArray.price.sort(comparar);
-
-  productsArray.price.sort((a, b) => a.price - b.price);
+  // let comparar = function (a, b) {
+  //   return a - b;
+  // };
+  // productsArray.price.sort(comparar);
+  let array = [];
+  switch (value){
+    case "asc": {
+      array = productsArray.toSorted((a,b) => a.price - b.price)
+      break;
+    }
+    case "desc":{
+      array = productsArray.toSorted((a,b) => b.price - a.price)
+      break;
+    }
+    case "disc": {
+      array = productsArray.filter(p => p.discountPercentage !== false);
+      break;
+    }
+  }
+  return array;
 };
 
 /**
@@ -96,16 +103,12 @@ searchInput.addEventListener("keyup", searchByName);
  * @param {string} categorySelectValue Valor del select de categoria
  * @returns Crea un arreglo de productos pasando por todos los filtros y llama a renderProductCards() para renderizarlas, en caso de no haber productos muestra ProductNotFoundMessage()
  */
-
-const renderFilteredProducts = (
-  searchInputValue,
-  priceSelectValue,
-  categorySelectValue
-) => {
-  let filteredProducts = searchByName(searchInputValue);
-  filteredProducts = filterByCategory(categorySelectValue, filteredProducts);
-  filteredProducts = filterByPrice(priceSelectValue, filteredProducts);
-
+const renderFilteredProducts = (searchInputValue,priceSelectValue,categorySelectValue) => {
+  let p = JSON.parse(localStorage.getItem('products'));
+  let filteredProducts = searchByName(searchInputValue, p);
+  filteredProducts = filterByCategory(categorySelectValue,filteredProducts);
+  filteredProducts = filterByPrice(priceSelectValue,filteredProducts);
+ 
   renderProductCards(filteredProducts);
 
   // ProductNotFoundMessage()
