@@ -5,5 +5,5 @@
  */
 
 export const getUsers = () =>{
-  return JSON.parse(localStorage.getItem('users'));
+  return JSON.parse(localStorage.getItem('users')) || [];
 }
