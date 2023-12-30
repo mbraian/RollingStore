@@ -118,9 +118,10 @@ searchInput.addEventListener('keyup', searchByName)
  */
 
 const renderFilteredProducts = (searchInputValue,priceSelectValue,categorySelectValue) => {
-  let filteredProducts = searchByName(searchInputValue)
-  filteredProducts = filterByCategory(categorySelectValue,filteredProducts)
-  filteredProducts = filterByPrice(priceSelectValue,filteredProducts)
+  let p = JSON.parse(localStorage.getItem('products'));
+  let filteredProducts = searchByName(searchInputValue, p);
+  filteredProducts = filterByCategory(categorySelectValue,filteredProducts);
+  filteredProducts = filterByPrice(priceSelectValue,filteredProducts);
  
   renderProductCards(filteredProducts);
 
