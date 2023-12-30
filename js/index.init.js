@@ -65,13 +65,26 @@ const filterByCategory = (value, productsArray) => {
  */
 
 const filterByPrice = (value, productsArray) => {
-  let comparar = function (a, b) {
-    return a - b;
-  };
-  productsArray.price.sort(comparar);
-
-  productsArray.price.sort((a,b) => a.price - b.price)
-
+  // let comparar = function (a, b) {
+  //   return a - b;
+  // };
+  // productsArray.price.sort(comparar);
+  let array = [];
+  switch (value){
+    case "asc": {
+      array = productsArray.toSorted((a,b) => a.price - b.price)
+      break;
+    }
+    case "desc":{
+      array = productsArray.toSorted((a,b) => b.price - a.price)
+      break;
+    }
+    case "disc": {
+      array = productsArray.filter(p => p.discountPercentage !== false);
+      break;
+    }
+  }
+  return array;
 };
 
 /**
