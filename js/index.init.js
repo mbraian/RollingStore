@@ -29,13 +29,7 @@ const cardContainer = document.getElementById("cardContainer");
 
 const renderProductCards = (products) => {
   cardContainer.innerHTML = "";
-  products.map((product) => {
-    const visible = product.visible === true;
-
-    if (visible) {
-      cardContainer.innerHTML += ProductCard(product);
-    }
-  });
+  products.map((product) => product.visible ? cardContainer.innerHTML += ProductCard(product): null);
 };
 
 const searchInput = document.getElementById("searchInput");
@@ -50,7 +44,17 @@ const clearFilters = document.getElementById("clearFilters");
  */
 
 const filterByCategory = (value, productsArray) => {
-  return productsArray.filter(p => p.category === value);
+  let matchingProducts = productsArray.filter(p => p.category == value);
+
+  if(value){
+    return matchingProducts;
+  }
+
+  return productsArray;
+
+  // VERSION ULT
+  // console.log(value,"FBC value")
+  // return value !== '' ? productsArray.filter(p => p.category === value) : productsArray;
 };
 
 /**
@@ -65,36 +69,65 @@ const filterByPrice = (value, productsArray) => {
   //   return a - b;
   // };
   // productsArray.price.sort(comparar);
-  let array = [];
-  switch (value){
-    case "asc": {
-      array = productsArray.toSorted((a,b) => a.price - b.price)
-      break;
-    }
-    case "desc":{
-      array = productsArray.toSorted((a,b) => b.price - a.price)
-      break;
-    }
-    case "disc": {
-      array = productsArray.filter(p => p.discountPercentage !== false);
-      break;
-    }
+
+  // VERSION ULT
+  // if(value === ''){return productsArray}
+  // let array = [];
+  // switch (value){
+  //   case "asc": {
+  //     array = productsArray.toSorted((a,b) => a.price - b.price)
+  //     break;
+  //   }
+  //   case "desc":{
+  //     array = productsArray.toSorted((a,b) => b.price - a.price)
+  //     break;
+  //   }
+  //   case "disc": {
+  //     array = productsArray.filter(p => p.discountPercentage !== false);
+  //     break;
+  //   }
+  // }
+  // console.log(array,"ARRAY")
+  // return array;
+
+  let matchingProducts;
+
+  if(value == 'asc'){
+    matchingProducts = productsArray.sort((a,b)=> a.price - b.price);
   }
-  return array;
+  if(value == 'desc'){
+    matchingProducts = productsArray.sort((a,b)=> b.price - a.price);
+  }
+  if(value == 'disc'){
+    matchingProducts = productsArray.filter(p => p.discountPercentage);
+    matchingProducts = productsArray.sort((a,b) => b.discountPercentage - a.discountPercentage);
+  }
+  if(value){
+    return matchingProducts;
+  }
+  
+  return productsArray;
 };
 
 /**
  *
  * @param {string} value valor del input de nombre
- * @param {array} productsArray Arreglo de productos a renderizar
  * @returns Arreglo de productos a renderizar
  */
 
-const searchByName = (value, productsArray) => {
-  return productsArray.filter((p) => p.name.includes(value));
+const searchByName = (value) => { //Ver aqui
+  const matchingProducts = products.filter(p => p.name.toLowerCase().includes(value));
+  return matchingProducts;
+
+  // VERSION ULT
+  // if (productsArray) {
+  //   return productsArray.filter((p) => p.name.includes(value));
+  // } else {
+  //   return [];
+  // }
 };
 
-searchInput.addEventListener("keyup", searchByName);
+// searchInput.addEventListener("keyup", searchByName); //Ver aqui
 
 /**
  *
@@ -104,12 +137,22 @@ searchInput.addEventListener("keyup", searchByName);
  * @returns Crea un arreglo de productos pasando por todos los filtros y llama a renderProductCards() para renderizarlas, en caso de no haber productos muestra ProductNotFoundMessage()
  */
 const renderFilteredProducts = (searchInputValue,priceSelectValue,categorySelectValue) => {
-  let p = JSON.parse(localStorage.getItem('products'));
-  let filteredProducts = searchByName(searchInputValue, p);
-  filteredProducts = filterByCategory(categorySelectValue,filteredProducts);
-  filteredProducts = filterByPrice(priceSelectValue,filteredProducts);
- 
-  renderProductCards(filteredProducts);
+    // VERSION ULT
+  // let p = JSON.parse(localStorage.getItem('products'));
+  // let filteredProducts = searchByName(searchInputValue, p);
+  // filteredProducts = filterByCategory(categorySelectValue,filteredProducts);
+  // filteredProducts = filterByPrice(priceSelectValue,filteredProducts);
+
+  // renderProductCards(filteredProducts);
+
+  let productsArray = searchByName(searchInputValue);
+  productsArray = filterByPrice(priceSelectValue, productsArray);
+  productsArray = filterByCategory(categorySelectValue, productsArray);
+
+  if(productsArray?.length == 0){
+    return cardContainer.innerHTML = ProductNotFoundMessage();
+  }
+  renderProductCards(productsArray);
 
   // ProductNotFoundMessage()
 };
