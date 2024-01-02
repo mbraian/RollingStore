@@ -71,13 +71,22 @@ const passwordFeedback = (password) =>{
  */
 
 const repeatPasswordFeedback = (password,repeatPassword) =>{
- 
+    signUpFormRepeatPassword.classList.remove("is-valid");
+    signUpFormRepeatPassword.classList.remove("is-invalid");
+
+    if(validateRepeatPassword(password,repeatPassword)){
+        signUpFormRepeatPassword.classList.add("is-valid");
+        return true;
+    }
+
+    signUpFormRepeatPassword.classList.add("is-invalid");
+    return false;
 }
 
 const showSuccesfulSignUpModal = () =>{
     const modal = new bootstrap.Modal(document.getElementById('succesfulSignupModal'))
-    modal.show()
-    setTimeout(redirectIndex, 3000)
+    modal.show();
+    setTimeout(redirectIndex, 3000);
 }
 
 
