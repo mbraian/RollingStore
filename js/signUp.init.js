@@ -39,7 +39,7 @@ const emailFeedback = (email) =>{ //VERIFICAR y revisar funcionamiento!
         signUpFormEmailInput.classList.add("is-valid");
         return true;
     }
-    
+
     signUpFormEmailInput.classList.add("is-invalid");
     return false;
 }
@@ -51,7 +51,16 @@ const emailFeedback = (email) =>{ //VERIFICAR y revisar funcionamiento!
  */
 
 const passwordFeedback = (password) =>{
+    signUpFormPasswordInput.classList.remove("is-valid");
+    signUpFormPasswordInput.classList.remove("is-invalid");
 
+    if(validateSignUpPassword(password)){
+        signUpFormPasswordInput.classList.add("is-valid");
+        return true;
+    }
+
+    signUpFormPasswordInput.classList.add("is-invalid");
+    return false;
 }
 
 /**
