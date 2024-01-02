@@ -9,13 +9,13 @@ import { createUser } from "./services/createUser.js";
 import { setLoggedUser } from "./services/setLoggedUser.js";
 
 document.addEventListener("DOMContentLoaded" , ()=>{
- Navbar()
+ Navbar();
 })
 
 const showPasswordButton = document.getElementById("showPasswordBtn")
 
 showPasswordButton.addEventListener("click", (e)=>{
-    showPassword(e)
+    showPassword(e);
 })
 
 const signUpForm = document.getElementById("signUpForm")
@@ -31,8 +31,17 @@ signUpFormRepeatPassword.addEventListener('paste', e => e.preventDefault());
  * @returns {bool} Debe mostrar el feedback de email valido o invalido segun corresponda,devuelve un booleano
  */
 
-const emailFeedback = (email) =>{
+const emailFeedback = (email) =>{ //VERIFICAR y revisar funcionamiento!
+    signUpFormPasswordInput.classList.remove("is-valid");
+    signUpFormPasswordInput.classList.remove("is-invalid")
 
+    if(validateEmail(email) && validateExistingEmail){
+        signUpFormEmailInput.classList.add("is-valid");
+        return true;
+    }
+    
+    signUpFormEmailInput.classList.add("is-invalid");
+    return false;
 }
 
 /**
