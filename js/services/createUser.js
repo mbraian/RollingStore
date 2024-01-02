@@ -11,22 +11,12 @@ import { validateSignUpPassword } from "../validators/validateSignUpPassword.js"
  */
 
 export const createUser = ({ email, password }) => {
-  const users = getUsers();
+  const users = getUsers();    
+  const nuevoUser = new User(email, password, "user");
+  
+  users.push(nuevoUser);
 
-  if(validateEmail(email)){
-    if(validateExistingEmail(email) && validateSignUpPassword(password)){
-      
-      if(users.some(u => u.email === email)){return};
+  localStorage.setItem('users', JSON.stringify(users));
 
-      const nuevoUser = new User(email, password, "user");
-      users.push(nuevoUser);
-      localStorage.setItem('users', JSON.stringify(users));
-      console.log(`Usuario: ${email}\nPassword:${password} \nLogueado exitosamente.`);
-      
-    }else{
-      console.warn("El email ya existe o la contraseña es incorrecta.");
-    }
-  }else{
-    console.warn("Email inválido.")
-  }
+  console.log(`Usuario: ${email}\nPassword:${password} \nLogueado exitosamente.`);
 };
