@@ -97,7 +97,13 @@ const showSuccesfulSignUpModal = () =>{
  */
 const signUpSubmit = (e) =>{
     e.preventDefault()
+    const formData = Object.fromEntries(new FormData(e.target));
 
+    if(email.emailFeedback(formData.email) & passwordFeedback(formData.password) && repeatPasswordFeedback(formData.password, formData.repeatPassword)){
+        createUser({email: formData.email, password: formData.password});
+        setLoggedUser(formData.email);
+        showSuccesfulSignUpModal();
+    }
 }
 
-signUpForm.addEventListener("submit", signUpSubmit)
+signUpForm.addEventListener("submit", signUpSubmit);
