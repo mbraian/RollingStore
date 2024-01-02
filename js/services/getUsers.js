@@ -20,6 +20,7 @@ export const getUsers = () =>{
       }
     }catch{
       console.warn("Error al parsear la cadena JSON:", error);
+      return [];
     }
   }else{
     return [];
