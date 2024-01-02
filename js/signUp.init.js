@@ -9,13 +9,13 @@ import { createUser } from "./services/createUser.js";
 import { setLoggedUser } from "./services/setLoggedUser.js";
 
 document.addEventListener("DOMContentLoaded" , ()=>{
- Navbar()
+ Navbar();
 })
 
 const showPasswordButton = document.getElementById("showPasswordBtn")
 
 showPasswordButton.addEventListener("click", (e)=>{
-    showPassword(e)
+    showPassword(e);
 })
 
 const signUpForm = document.getElementById("signUpForm")
@@ -31,8 +31,17 @@ signUpFormRepeatPassword.addEventListener('paste', e => e.preventDefault());
  * @returns {bool} Debe mostrar el feedback de email valido o invalido segun corresponda,devuelve un booleano
  */
 
-const emailFeedback = (email) =>{
+const emailFeedback = (email) =>{ //VERIFICAR y revisar funcionamiento!
+    signUpFormPasswordInput.classList.remove("is-valid");
+    signUpFormPasswordInput.classList.remove("is-invalid")
 
+    if(validateEmail(email) && validateExistingEmail){
+        signUpFormEmailInput.classList.add("is-valid");
+        return true;
+    }
+
+    signUpFormEmailInput.classList.add("is-invalid");
+    return false;
 }
 
 /**
@@ -42,7 +51,16 @@ const emailFeedback = (email) =>{
  */
 
 const passwordFeedback = (password) =>{
+    signUpFormPasswordInput.classList.remove("is-valid");
+    signUpFormPasswordInput.classList.remove("is-invalid");
 
+    if(validateSignUpPassword(password)){
+        signUpFormPasswordInput.classList.add("is-valid");
+        return true;
+    }
+
+    signUpFormPasswordInput.classList.add("is-invalid");
+    return false;
 }
 
 /**
@@ -53,13 +71,22 @@ const passwordFeedback = (password) =>{
  */
 
 const repeatPasswordFeedback = (password,repeatPassword) =>{
- 
+    signUpFormRepeatPassword.classList.remove("is-valid");
+    signUpFormRepeatPassword.classList.remove("is-invalid");
+
+    if(validateRepeatPassword(password,repeatPassword)){
+        signUpFormRepeatPassword.classList.add("is-valid");
+        return true;
+    }
+
+    signUpFormRepeatPassword.classList.add("is-invalid");
+    return false;
 }
 
 const showSuccesfulSignUpModal = () =>{
     const modal = new bootstrap.Modal(document.getElementById('succesfulSignupModal'))
-    modal.show()
-    setTimeout(redirectIndex, 3000)
+    modal.show();
+    setTimeout(redirectIndex, 3000);
 }
 
 
@@ -70,7 +97,13 @@ const showSuccesfulSignUpModal = () =>{
  */
 const signUpSubmit = (e) =>{
     e.preventDefault()
+    const formData = Object.fromEntries(new FormData(e.target));
 
+    if(emailFeedback(formData.email) & passwordFeedback(formData.password) && repeatPasswordFeedback(formData.password, formData.repeatPassword)){
+        createUser({email: formData.email, password: formData.password});
+        setLoggedUser(formData.email);
+        showSuccesfulSignUpModal();
+    }
 }
 
-signUpForm.addEventListener("submit", signUpSubmit)
+signUpForm.addEventListener("submit", signUpSubmit);
