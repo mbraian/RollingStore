@@ -8,5 +8,8 @@ import { getUsers } from "./getUsers.js"
  */
 
 export const setLoggedUser = (email) => {
+    const users = getUsers();
+    const user = users.find(u => u.email == email);
 
+    localStorage.setItem("loggedUser", JSON.stringify(user));
 }
