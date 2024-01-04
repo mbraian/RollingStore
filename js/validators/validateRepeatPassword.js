@@ -7,5 +7,5 @@
 
 
 export const validateRepeatPassword = (password, repeatPassword) =>{
-
+    return password === repeatPassword;
 }
