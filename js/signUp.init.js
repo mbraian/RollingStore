@@ -35,7 +35,7 @@ const emailFeedback = (email) =>{ //VERIFICAR y revisar funcionamiento!
     signUpFormEmailInput.classList.remove("is-valid");
     signUpFormEmailInput.classList.remove("is-invalid")
 
-    if(validateEmail(email) && validateExistingEmail){
+    if(validateEmail(email) && validateExistingEmail(email)){
         signUpFormEmailInput.classList.add("is-valid");
         return true;
     }

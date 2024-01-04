@@ -11,7 +11,7 @@ import { validateSignUpPassword } from "../validators/validateSignUpPassword.js"
  */
 
 export const createUser = ({ email, password }) => {
-  const users = getUsers(); 
+  const users = getUsers() || []; 
   console.log(users,"<---Users - createUser")
   console.log(email,"<---email - createUser")   
   console.log(password,"<---pass - createUser")
