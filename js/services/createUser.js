@@ -11,10 +11,14 @@ import { validateSignUpPassword } from "../validators/validateSignUpPassword.js"
  */
 
 export const createUser = ({ email, password }) => {
-  const users = getUsers();    
-  const nuevoUser = new User(email, password, "user");
-  
+  const users = getUsers(); 
+  console.log(users,"<---Users - createUser")
+  console.log(email,"<---email - createUser")   
+  console.log(password,"<---pass - createUser")
+  const nuevoUser = new User({email: email, password: password, role: "user"}); /// <----- MUCHO OJO! (parece que si o si tiene que ir asi). PREGUNTAR!!!!! ======================================
+  console.log(nuevoUser,"<---nuevoUsuario - createUser")   
   users.push(nuevoUser);
+  console.log(users,"<---Users2 - createUser");   
 
   localStorage.setItem('users', JSON.stringify(users));
 

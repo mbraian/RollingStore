@@ -5,5 +5,7 @@
  */
 
 export const getUsers = () =>{
-  return JSON.parse(localStorage.getItem('users'));
+  const usuarios = JSON.parse(localStorage.getItem('users'));
+  console.log(usuarios,"<--Usuarios getUsers")
+  return usuarios
 }
