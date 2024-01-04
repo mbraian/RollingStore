@@ -32,8 +32,8 @@ signUpFormRepeatPassword.addEventListener('paste', e => e.preventDefault());
  */
 
 const emailFeedback = (email) =>{ //VERIFICAR y revisar funcionamiento!
-    signUpFormPasswordInput.classList.remove("is-valid");
-    signUpFormPasswordInput.classList.remove("is-invalid")
+    signUpFormEmailInput.classList.remove("is-valid");
+    signUpFormEmailInput.classList.remove("is-invalid")
 
     if(validateEmail(email) && validateExistingEmail){
         signUpFormEmailInput.classList.add("is-valid");
