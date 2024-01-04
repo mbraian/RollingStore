@@ -7,5 +7,5 @@ import { passwordRegex } from "./passwordRegex.js"
  */
 
 export const validateSignUpPassword = (password) =>{
-
+    return passwordRegex.test(password);
 }
