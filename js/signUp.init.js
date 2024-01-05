@@ -99,7 +99,7 @@ const signUpSubmit = (e) =>{
     e.preventDefault()
     console.log(e.target,"<---SignUp 'target'")
     const formData = Object.fromEntries(new FormData(e.target));
-    console.log(formData.email,"<--FormData")
+    console.log(formData,"<--FormData")
     if(emailFeedback(formData.email) & passwordFeedback(formData.password) && repeatPasswordFeedback(formData.password, formData.repeatPassword)){
 
         createUser({email: formData.email, password: formData.password});

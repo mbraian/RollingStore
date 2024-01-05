@@ -36,8 +36,18 @@ const userLoginFeedback = (bool) =>{
  */
 
 const userLogin = (e) =>{
-  e.preventDefault()
-  
+  e.preventDefault();
+  console.log(e,"<--Evento")
+  const formData = Object.fromEntries(new FormData(e.target));
+  console.log(formData,"<--FormData")
+  if(validateLoginUser({email: formData.email, password: formData.password})){
+    userLoginFeedback(true);
+    setLoggedUser(formData.email);
+    console.log(formData.email,"<--email")
+    setTimeout(redirectIndex,3000);
+    return;
+  }
+  return userLoginFeedback(false);
 }
 
 loginForm.addEventListener("submit", userLogin)
