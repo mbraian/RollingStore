@@ -49,7 +49,7 @@ const Navbar = () => {
         ? `<li class="nav-item dropdown me-5">
     <a class="nav-link dropdown-toggle fs-5"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
        ${
-         loggedUser?.role == "admin" ? "Admin" : ""
+         loggedUser?.role == "admin" ? "Admin" : `${loggedUser.email}`
        } <i class="bi bi-person "></i>
     </a>
     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
@@ -95,7 +95,7 @@ const Navbar = () => {
 };
 
 const logoutHandler = () => {
-  logout()
+  logout();
 };
 
 const renderCartBodyHandler = () =>{
