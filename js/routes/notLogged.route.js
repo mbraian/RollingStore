@@ -1,5 +1,5 @@
 import { getLoggedUser } from "../services/getLoggedUser.js";
-
+import { redirectIndex } from "../utils/redirectIndex.js";
 
 /**
  * 
@@ -7,5 +7,5 @@ import { getLoggedUser } from "../services/getLoggedUser.js";
  */
 
 export const notLoggedRoute = () => {
-
+    if(!getLoggedUser()) redirectIndex();
 };
