@@ -7,5 +7,5 @@ import { redirectIndex } from "../utils/redirectIndex.js";
  */
 
 export const notLoggedRoute = () => {
-    if(!getLoggedUser()) redirectIndex();
+    if(!getLoggedUser()) return window.location.pathname = '/views/login.html';
 };
