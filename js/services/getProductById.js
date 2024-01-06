@@ -7,6 +7,6 @@ import { getProducts } from "./getProducts.js";
  */
 
 export const getProductById = (id) =>{
-    const products = getProducts()
-
+    const products = getProducts();
+    return products.find(product => product.id == id);
 }
