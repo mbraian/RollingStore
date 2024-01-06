@@ -6,6 +6,6 @@ import { getLoggedUser } from "./getLoggedUser.js"
  */
 
 export const getCartProducts = () =>{
-    const user = getLoggedUser()
-
+    const user = getLoggedUser();
+    return JSON.parse(localStorage.getItem(user.id)) || [];
 }
