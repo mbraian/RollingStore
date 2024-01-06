@@ -7,5 +7,5 @@
 
 
 export const setCartProducts = (id, products) =>{
-
+    return localStorage.setItem(id, JSON.stringify(products));
 }

@@ -1,5 +1,4 @@
 import { getLoggedUser } from "../services/getLoggedUser.js";
-import { redirectIndex } from "../utils/redirectIndex.js";
 
 /**
  * 
