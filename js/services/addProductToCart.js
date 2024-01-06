@@ -12,5 +12,26 @@ import { setCartProducts } from "./setCartProducts.js";
  */
 
 export const addProductToCart = (id) => {
+    const usuarioLogueado = getLoggedUser();
+    const productoEncontrado = getProductById(id);
+    const carrito = getCartProducts();
+    const indiceDelProducto = carrito.findIndex(p => p.id == id);
 
+    if(!getLoggedUser){ // Usuario NO loggeado, se lo redirige al login
+        return notLoggedRoute();
+    }
+
+    if(indiceDelProducto !== -1){ // El producto existe en el carrito
+        carrito[indiceDelProducto].quantity++;
+        setCartProducts(usuarioLogueado.id, carrito);
+        cartBadgeHandler();
+        return;
+    }
+
+    if(productoEncontrado){ // El producto se ingresa por 1ra vez
+        carrito.push(productoEncontrado);
+        setCartProducts(usuarioLogueado.id, carrito);
+        cartBadgeHandler();
+        return;
+    }
 };
