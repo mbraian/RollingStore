@@ -3,5 +3,6 @@
  */
 
 export const logout = () =>{
-   
+   localStorage.removeItem('loggedUser');
+   location.reload();
 }
