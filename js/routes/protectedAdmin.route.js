@@ -1,4 +1,5 @@
 import { getLoggedUser } from "../services/getLoggedUser.js";
+import { redirectIndex } from "../utils/redirectIndex.js";
 
 /**
  * 
@@ -6,5 +7,5 @@ import { getLoggedUser } from "../services/getLoggedUser.js";
  */
 
 export const protectedAdminRoute = () => {
-
+    if(getLoggedUser()?.role !== 'admin') return redirectIndex();
 };
