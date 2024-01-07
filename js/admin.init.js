@@ -18,4 +18,6 @@ const tableBody = document.getElementById("adminTableBody");
 export const renderTableBody = () => {
   tableBody.innerHTML = "";
   const products = getProducts();
+
+  products.map( producto => tableBody.innerHTML += TableRow(producto));
 };
