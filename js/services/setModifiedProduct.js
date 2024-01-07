@@ -6,5 +6,5 @@
 
 
 export const setModifiedProducts = (products) =>{
-   
+   return localStorage.setItem('products', JSON.stringify(products));
 }

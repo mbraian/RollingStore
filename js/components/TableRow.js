@@ -34,7 +34,7 @@ const TableRow = (product) => {
 
 const setVisibility = (id) => {
   const products = getProducts();
-  const productIndex = getProductIndexById(id);
+  const productIndex = getProductIndexById(id);  
 };
 
 window.setVisibility = setVisibility;
