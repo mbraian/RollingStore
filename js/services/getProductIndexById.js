@@ -8,5 +8,5 @@ import { getProducts } from "./getProducts.js";
 
 export const getProductIndexById = (id) =>{
     const products = getProducts()
-
+    return products.findIndex(producto => producto.id == id);
 }
